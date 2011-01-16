@@ -30,6 +30,7 @@ public class PlantSpreader extends JavaPlugin {
         // Register our events
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
+        log("PlantSpreader by Master-Guy enabled");
     }
     public void onDisable() {
         System.out.println("Goodbye world!");
