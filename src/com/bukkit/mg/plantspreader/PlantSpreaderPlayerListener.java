@@ -128,7 +128,6 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
 			    		this.plugin.getServer().getWorlds()[0].getBlockAt(X, Y, Z).setTypeId(T);
 			    	} catch (Exception e) {
 						log("Fail at "+X+"/"+Y+"/"+T+"("+T+")!");
-						return;
 					} finally {
 				    	speadOptions.clear();
 			    	}
