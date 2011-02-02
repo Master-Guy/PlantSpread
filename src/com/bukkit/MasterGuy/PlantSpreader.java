@@ -1,4 +1,4 @@
-package com.bukkit.mg.plantspreader;
+package com.bukkit.MasterGuy;
 
 import java.io.File;
 import java.util.HashMap;
@@ -21,6 +21,10 @@ public class PlantSpreader extends JavaPlugin {
     private final PlantSpreaderPlayerListener playerListener = new PlantSpreaderPlayerListener(this);
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 	public HashMap<String, Integer> stickMap = new HashMap<String, Integer>();
+	
+	public String pluginName = "PlantSpreader";
+	public String pluginVersion = "0.5";
+	public String pluginNotes = "The configuration file can be found in /settings/";
 
     public PlantSpreader(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
         super(pluginLoader, instance, desc, folder, plugin, cLoader);
@@ -29,11 +33,12 @@ public class PlantSpreader extends JavaPlugin {
     public void onEnable() {
         // Register our events
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Priority.Normal, this);
-        log("PlantSpreader by Master-Guy enabled");
+        pm.registerEvent(Event.Type.PLAYER_COMMAND, playerListener, Priority.Normal, this);
+        log("Plugin enabled: "+pluginName+" version "+pluginVersion);
+        if(pluginNotes.length() > 0) { log(pluginNotes); }
     }
     public void onDisable() {
-        System.out.println("Goodbye world!");
+        System.out.println("Plugin disabled: "+pluginName+" version "+pluginVersion);
     }
     public boolean isDebugging(final Player player) {
         if (debugees.containsKey(player)) {

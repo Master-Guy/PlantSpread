@@ -1,4 +1,4 @@
-package com.bukkit.mg.plantspreader;
+package com.bukkit.MasterGuy;
 
 import java.io.BufferedReader;
 import java.io.File;
