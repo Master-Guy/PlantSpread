@@ -18,23 +18,28 @@ import org.bukkit.plugin.PluginManager;
  */
 
 public class PlantSpreader extends JavaPlugin {
+	
+	// Configuration
+    public String iniPath = "plugins/PlantSpreader/";
+    public String iniFile = iniPath+"PlantSpreader.ini";
+	public String pluginName = "PlantSpreader";
+	public String pluginVersion = "0.5";
+	public String pluginNotes = "The configuration for "+pluginName+": "+iniFile;
+	
+	// Plugin
     private final PlantSpreaderPlayerListener playerListener = new PlantSpreaderPlayerListener(this);
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 	public HashMap<String, Integer> stickMap = new HashMap<String, Integer>();
     private final Settings Settings = new Settings();
-	
-	public String pluginName = "PlantSpreader";
-	public String pluginVersion = "0.5";
-	public String pluginNotes = "The configuration file can be found in /settings/";
 
     public PlantSpreader(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader) {
         super(pluginLoader, instance, desc, folder, plugin, cLoader);
     }
 
     public void onEnable() {
+        Settings.testFolderExists(iniPath);
         // Register our events
         PluginManager pm = getServer().getPluginManager();
-        Settings.testFolderExists("settings");
         pm.registerEvent(Event.Type.PLAYER_COMMAND, playerListener, Priority.Normal, this);
         log("Plugin enabled: "+pluginName+" version "+pluginVersion);
         if(pluginNotes.length() > 0) { log(pluginNotes); }

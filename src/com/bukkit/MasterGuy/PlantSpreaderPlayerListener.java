@@ -24,9 +24,10 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
 
     public PlantSpreaderPlayerListener(PlantSpreader instance) {
         plugin = instance;
+        Settings.testFolderExists(plugin.iniPath);
         doSpreadNow = false;
         timer = new Timer();
-        timerDelay = Integer.parseInt(Settings.getSetting("settings/PlantSpreader.ini", "spreadDelay", "5")[0])*1000;
+        timerDelay = Integer.parseInt(Settings.getSetting(plugin.iniFile, "spreadDelay", "5")[0])*1000;
         timer.schedule(new RemindTask(), timerDelay, timerDelay);
         log("Plants are scheduled to spread every "+(timerDelay/1000)+" seconds.");
     }
@@ -46,7 +47,7 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
         
     	allowPlayer = false;
     	I = 0;
-    	setting = Settings.getSetting("settings/PlantSpreader.ini", "allowedPlayers", "MasterGuy013,AdminAccount1,ModAccount2,PlayerAccount3", ",");
+    	setting = Settings.getSetting(plugin.iniFile, "allowedPlayers", "MasterGuy013,AdminAccount1,ModAccount2,PlayerAccount3", ",");
     	while (I < setting.length) {
     		if(event.getPlayer().getName().equalsIgnoreCase(setting[I])) {
     			allowPlayer = true;
@@ -57,11 +58,11 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
     		allowPlayer = true;
     	}
     	
-    	if(command.equalsIgnoreCase(Settings.getSetting("settings/PlantSpreader.ini", "timerReloadCommand", "/reloadSpreaderTimer")[0])) {
+    	if(command.equalsIgnoreCase(Settings.getSetting(plugin.iniFile, "timerReloadCommand", "/reloadSpreaderTimer")[0])) {
     		if(allowPlayer) {
     			timer.cancel();
     	        timer = new Timer();
-    	        timerDelay = Integer.parseInt(Settings.getSetting("settings/PlantSpreader.ini", "spreadDelay", "5")[0])*1000;
+    	        timerDelay = Integer.parseInt(Settings.getSetting(plugin.iniFile, "spreadDelay", "5")[0])*1000;
     	        timer.schedule(new RemindTask(), timerDelay, timerDelay);
     	        log("Plants are scheduled to spread every "+(timerDelay/1000)+" seconds.");
     	        event.getPlayer().sendMessage("Plants are scheduled to spread every "+(timerDelay/1000)+" seconds.");
@@ -71,7 +72,7 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
     		}
     	}
         
-    	if(command.equalsIgnoreCase(Settings.getSetting("settings/PlantSpreader.ini", "spreadCommand", "/plantspread")[0])) {
+    	if(command.equalsIgnoreCase(Settings.getSetting(plugin.iniFile, "spreadCommand", "/plantspread")[0])) {
     		if(allowPlayer) {
     			doSpread();
     	        event.getPlayer().sendMessage("You triggered a spread loop.");
@@ -87,10 +88,10 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
 		String[] spreadBlocks;
 		possibleSpreads = 0;
 		I = 0;
-		spreadBlocks = Settings.getSetting("settings/PlantSpreader.ini", "spreadBlocks", "37,38,39,40,86", ",");
-		maxPatchSize = Integer.parseInt(Settings.getSetting("settings/PlantSpreader.ini", "maxPatchSize", "9")[0]);
-		Integer spaXZ = Integer.parseInt(Settings.getSetting("settings/PlantSpreader.ini", "spreadPlayerAreaXZ", "10")[0]);
-		Integer spaY = Integer.parseInt(Settings.getSetting("settings/PlantSpreader.ini", "spreadPlayerAreaY", "2")[0]);
+		spreadBlocks = Settings.getSetting(plugin.iniFile, "spreadBlocks", "37,38,39,40,86", ",");
+		maxPatchSize = Integer.parseInt(Settings.getSetting(plugin.iniFile, "maxPatchSize", "9")[0]);
+		Integer spaXZ = Integer.parseInt(Settings.getSetting(plugin.iniFile, "spreadPlayerAreaXZ", "10")[0]);
+		Integer spaY = Integer.parseInt(Settings.getSetting(plugin.iniFile, "spreadPlayerAreaY", "2")[0]);
     	while (I < this.plugin.getServer().getOnlinePlayers().length) {
     		X = this.plugin.getServer().getOnlinePlayers()[I].getLocation().getBlockX()-spaXZ;
     		Y = this.plugin.getServer().getOnlinePlayers()[I].getLocation().getBlockY()-spaY;

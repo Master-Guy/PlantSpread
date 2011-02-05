@@ -6,18 +6,20 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
 public class Settings {
-	public static final Logger log = Logger.getLogger("Minecraft"); // Logger
+	//public static final Logger log = Logger.getLogger("Minecraft"); // Logger
 	private String curLine; // A line in the file 
 	
     public void testFolderExists(String folder) {
-    	boolean success = (new File(folder)).mkdirs();
+    	boolean success;
+    	success = (new File(folder)).mkdir();
         if (success) {
-        	log.info("Directory: " + folder + " created");
+        	System.out.println("Directory: " + folder + " created");
         }
     }
+    
     public void testFileExists(String fileName) {
     	boolean success = (new File(fileName)).isFile();
     	if(!success) {
@@ -27,7 +29,7 @@ public class Settings {
     		} catch (Exception e) {
     		} finally {
     	        if (success) {
-    	        	log.info("File: " + fileName + " created");
+    	        	System.out.println("File: " + fileName + " created");
     	        }
     		}
     	}
@@ -73,15 +75,15 @@ public class Settings {
 	                p.println (optionName+"="+defaultValue);
 	                p.close();
                 } catch (Exception e) {
-                	log.warning("Error writing to file");
+                	System.out.println("Error writing to file");
                 }
 			}
 		}
         catch (Exception e) {
-			log.info("-=-");
-			log.info("File input error: "+e.toString());
-			log.info("File input error: "+e.getStackTrace().toString());
-			log.info("-=-");
+        	System.out.println("-=-");
+        	System.out.println("File input error: "+e.toString());
+        	System.out.println("File input error: "+e.getStackTrace().toString());
+        	System.out.println("-=-");
 		}
 		finally {
 		}
