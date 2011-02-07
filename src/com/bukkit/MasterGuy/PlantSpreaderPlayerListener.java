@@ -107,7 +107,7 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
     				Z = minZ;
         			while(Z < maxZ) {
         				foundValidBlock = false;
-        				foundBlock = this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y, Z);
+        				foundBlock = this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y, Z);
         				for(J=0;J<spreadBlocks.length;J++) {
         					if(foundBlock.toString().equalsIgnoreCase(spreadBlocks[J].toString())) {
         						foundValidBlock = true;
@@ -124,7 +124,7 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
 		        					pmnZ = Z-maxPatchSize;
 		        					pmxZ = Z+maxPatchSize;
 		        					while(pmnZ < pmxZ) {
-		        						if(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(pmnX, pmnY, pmnZ) == foundBlock) {
+		        						if(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(pmnX, pmnY, pmnZ) == foundBlock) {
 		        							patchCount = patchCount + 1;
 		        						}
 		        						pmnZ = pmnZ + 1;
@@ -135,13 +135,13 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
         					}
         					if(patchCount <= maxPatchSize) {
 	        					if (
-	        						(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X-1, Y, Z) == 0) ||
-	        						(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X+1, Y, Z) == 0) ||
-	        						(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y, Z-1) == 0) ||
-	        						(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y, Z+1) == 0)
+	        						(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X-1, Y, Z) == 0) ||
+	        						(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X+1, Y, Z) == 0) ||
+	        						(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y, Z-1) == 0) ||
+	        						(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y, Z+1) == 0)
 	        					) {
-        							if(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X-1, Y, Z) == 0) {
-        								if(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X-1, Y-1, Z) == this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y-1, Z)) {
+        							if(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X-1, Y, Z) == 0) {
+        								if(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X-1, Y-1, Z) == this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y-1, Z)) {
         									speadOptions.put(possibleSpreads+"X", X-1);
         									speadOptions.put(possibleSpreads+"Y", Y);
         									speadOptions.put(possibleSpreads+"Z", Z);
@@ -149,8 +149,8 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
         									possibleSpreads = possibleSpreads + 1;
         								}
         							}
-        							if(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X+1, Y, Z) == 0) {
-        								if(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X+1, Y-1, Z) == this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y-1, Z)) {
+        							if(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X+1, Y, Z) == 0) {
+        								if(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X+1, Y-1, Z) == this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y-1, Z)) {
         									speadOptions.put(possibleSpreads+"X", X+1);
         									speadOptions.put(possibleSpreads+"Y", Y);
         									speadOptions.put(possibleSpreads+"Z", Z);
@@ -158,8 +158,8 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
         									possibleSpreads = possibleSpreads + 1;
         								}
         							}
-        							if(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y, Z-1) == 0) {
-        								if(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y-1, Z-1) == this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y-1, Z)) {
+        							if(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y, Z-1) == 0) {
+        								if(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y-1, Z-1) == this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y-1, Z)) {
         									speadOptions.put(possibleSpreads+"X", X);
         									speadOptions.put(possibleSpreads+"Y", Y);
         									speadOptions.put(possibleSpreads+"Z", Z-1);
@@ -167,8 +167,8 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
         									possibleSpreads = possibleSpreads + 1;
         								}
         							}
-        							if(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y, Z+1) == 0) {
-        								if(this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y-1, Z+1) == this.plugin.getServer().getWorlds()[0].getBlockTypeIdAt(X, Y-1, Z)) {
+        							if(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y, Z+1) == 0) {
+        								if(this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y-1, Z+1) == this.plugin.getServer().getWorlds().get(0).getBlockTypeIdAt(X, Y-1, Z)) {
         									speadOptions.put(possibleSpreads+"X", X);
         									speadOptions.put(possibleSpreads+"Y", Y);
         									speadOptions.put(possibleSpreads+"Z", Z+1);
@@ -195,7 +195,7 @@ public class PlantSpreaderPlayerListener extends PlayerListener {
 		    	Z = speadOptions.get(rn2+"Z");
 		    	T = speadOptions.get(rn2+"T");
 		    	try{
-		    		this.plugin.getServer().getWorlds()[0].getBlockAt(X, Y, Z).setTypeId(T);
+		    		this.plugin.getServer().getWorlds().get(0).getBlockAt(X, Y, Z).setTypeId(T);
 		    	} catch (Exception e) {
 				} finally {
 			    	speadOptions.clear();
